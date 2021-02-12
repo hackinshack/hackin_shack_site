@@ -49,7 +49,7 @@ function menuSelect() {
 }
 
 function add_header_image() {
-    header_img = createImg('/data/Logo2019shack.png','logo');
+    header_img = createImg('data/Logo2019shack.png','logo');
     header_img.parent('menu_up');
     header_img.size(60,45);
     header_img.style('opacity',0.5);
@@ -57,7 +57,7 @@ function add_header_image() {
 }
 
 function add_footer_image() {
-    header_img = createImg('/data/Logo2019words.png','words');
+    header_img = createImg('data/Logo2019words.png','words');
     header_img.parent('menu_down');
     header_img.size(220,45);
     header_img.style('opacity',0.5);
