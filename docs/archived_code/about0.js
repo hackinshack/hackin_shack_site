@@ -9,7 +9,7 @@ function setup() {
 }
 
 function draw() {
-    background(100,200,100);
+    background(100,200,200);
     
     xoff = xoff + 0.01;
     yoff = yoff + 0.01;

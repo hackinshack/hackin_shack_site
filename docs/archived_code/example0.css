@@ -20,21 +20,24 @@ body {
     display: grid;
     grid-template-columns: repeat(12, minmax(0,1fr));
     grid-gap: 5px;
-    opacity: 0.5;
+    /* opacity: 0.5; */
 }
 
 header,
 footer {
     border-radius: 5px;
     padding: 10px;
-    background-color: rgb(218, 203, 157);
+    /* background-color: rgb(218, 203, 157); */
+    background-color: rgba(255, 255, 255, 0.2);
     border: 2px solid rgb(231, 11, 29);
     min-height: 100px; 
+    /* opacity: 0.2; */
 }
 
 header {
     grid-column: 1 / 13;
     grid-row: 1;
+    /* background-image: url("./data/Logo2019words.png") */
 }
 
 aside {
@@ -44,7 +47,7 @@ aside {
     padding: 10px;
     background-color: rgb(218, 203, 157);
     border: 2px solid rgb(231, 11, 29);
-    min-height: 500px;
+    /* min-height: 500px; */
 }
 
 article {
@@ -54,7 +57,7 @@ article {
     padding: 10px;
     background-color: rgb(218, 203, 157);
     border: 2px solid rgb(231, 11, 29);
-    min-height: 500px;
+    min-height: 400px;
 }
 
 footer {
