@@ -12,7 +12,7 @@ var top_menu;
 let back_sketch;
 
 function setup() {
-    // back_sketch = new p5(sketch);
+    back_sketch = new p5(sketch);
     canvasDiv = document.getElementById('sketch1');
     sketch_width = canvasDiv.offsetWidth -2*sketch_border;
     sketch_height = canvasDiv.offsetHeight -2*sketch_border;
@@ -27,10 +27,29 @@ function setup() {
     add_header_image();
     add_footer_image();
     
-    background_color = color(250,200,100,50);
+    background_color = color(250,200,100,200);
 
-    let aside = select('#side1');
-    aside.html('<h1>Put something nice in here!</h1>');
+    // let aside_img = createImg('./images/Logo2019shack.png','logo');
+    // aside_img.class('displayed');
+    // aside_img.parent('side1');
+    // aside_img.size(160,120);
+
+    let aside = select('#side1-bottom');
+    aside.html('This week in the Shack: <br>\
+    we embark upon our new adventure.',true);
+
+    // aside_img.style('opacity',0.5);
+    
+    // let aside_top = select('#side1-top');
+    // aside_top.html('<h1>Welcome to Hackin&#39; Shack, and the corresponding shack attack.</h1>');
+
+    // let aside_middle = select('#side1-middle');
+    // aside_middle.html('This is where all the magic happens! I could go on and on about \
+    // all the magic but I really just want to see what a paragraph looks like.');
+
+    // let aside_bottom = select('#side1-bottom');
+    // aside_bottom.html('<h3>Let&#39s make something.</h3>');
+    // aside.html('<h1>Put something </h1>');
 }
 
 // function create_menu_up() {
@@ -56,20 +75,33 @@ function setup() {
 // }
 
 function add_header_image() {
-    header_img = createImg('./images/Logo2019shack.png','logo');
-    header_img.parent('menu_up');
-    header_img.size(60,45);
-    header_img.style('opacity',0.5);
-    header_img.position(10,10);
+    var header_img = createImg('./images/logo_side_4.png','logo');
+    header_img.size(360,65);
+    header_img.parent('heads-up');
+    // header_img.class('displayed');
+    // header_img.style('opacity',0.5);
     header_img.mousePressed(function () {console.log('pressed');})
+
+    // var header_img2 = createImg('./images/Logo2019words.png','words');
+    // header_img2.parent('heads-up');
+    // header_img2.class('displayed');
+    // header_img2.size(220,45);
+    // header_img2.style('opacity',0.5);
+
 }
 
 function add_footer_image() {
-    header_img = createImg('./images/Logo2019words.png','words');
-    header_img.parent('menu_down');
-    header_img.size(220,45);
-    header_img.style('opacity',0.5);
+    // header_img = createImg('./images/Logo2019words.png','words');
+    // header_img.class('displayed');
+    // header_img.parent('menu_down');
+    // header_img.size(220,45);
+    // header_img.style('opacity',0.5);
     // header_img.position(10,10);
+
+    var f = select('#menu_down');
+    f.html('Let&#39s make something.',true)
+
+
 }
 
 function draw() {

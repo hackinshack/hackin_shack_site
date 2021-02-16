@@ -3,7 +3,10 @@ let sketch = function(p) {
     let img;
 
     p.preload = function() {
-        img = loadImage('images/Logo2019shack.png');
+        img = loadImage('images/cropped-blue_vert.jpg', img => {
+            img.resize(windowWidth,0);
+            p.image(img, 0, 0);
+        });
     }
 
     p.setup = function() {
