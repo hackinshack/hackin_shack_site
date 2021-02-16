@@ -1,0 +1,118 @@
+/* structure for all, geared toward mobile first */
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+  }
+  
+  body {
+    width: 90%;
+    max-width: 900px;
+    margin: 2em auto;
+    font: .9em/1.2 Arial, Helvetica, sans-serif;
+    background-color:black;
+  }
+  
+  .container {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0,1fr));
+    grid-gap: 0px;
+  }
+  
+  .button {
+    background-color: #a117d8; 
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+  
+  header,
+  footer {
+    padding: 10px;
+    background-color: rgb(161, 162, 238);
+    /* border: 2px solid rgb(231, 11, 29); */
+    min-height: 20px;
+    position: relative;
+  }
+  
+  header {
+    grid-column: 1 / 13;
+    grid-row: 1;
+  }
+  
+  #side1,#side2,#side3 {
+    grid-column: 1 / 13;
+    grid-row: 3;
+    border: 2px solid rgb(231, 11, 29);
+    min-height: 40px;
+    background-color: rgba(197, 198, 240, 0.2);
+  }
+
+  #side2 { grid-row: 5 }
+  #side3 { grid-row: 7 }
+  
+  #sketch1, #sketch2, #sketch3 {
+    grid-column: 1 / 13;
+    grid-row: 2;
+    border: 2px solid rgb(231, 11, 29);
+    min-height: 600px;
+    background-color: rgba(197, 198, 240, 0.2);
+    position: relative;
+  }
+
+  #sketch2 { grid-row: 4 }
+  #sketch3 { grid-row: 6}
+  
+  footer {
+    grid-column: 1 / 13;
+    grid-row: 8;
+  }
+  
+  
+  /* structure for larger screens:*/
+  @media (min-width: 576px) {
+  
+    #side1 {
+        grid-column: 1 / 5;
+        grid-row: 2;
+    }
+  
+    #sketch1 {
+        grid-column: 5 / 13;
+        grid-row: 2;
+    }
+
+    #side2 {
+        grid-column: 1 / 5;
+        grid-row: 3;
+    }
+  
+    #sketch2 {
+        grid-column: 5 / 13;
+        grid-row: 3;
+    }
+
+    #side3 {
+        grid-column: 1 / 5;
+        grid-row: 4;
+    }
+  
+    #sketch3 {
+        grid-column: 5 / 13;
+        grid-row: 4;
+    }
+  
+    footer {
+        grid-column: 1 / 13;
+        grid-row: 5;
+    }
+  }
