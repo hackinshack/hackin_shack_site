@@ -14,11 +14,17 @@ body {
   margin: 2em auto;
   /* font: .9em/1.2 Arial, Helvetica, sans-serif; */
   font: 16px Ariel, sans-serif;
-  background-color: rgba(150, 150, 150, 0.5);
+  /* background-color: rgba(150, 150, 150, 0.5); */
   background-image: url("../images/tools.jpg");
 }
 
+/* .img-container {
+  background-color: rgba(150, 150, 150, 0.8);
+} */
+
 .container {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: 4fr 8fr;
   grid-gap: 1em;

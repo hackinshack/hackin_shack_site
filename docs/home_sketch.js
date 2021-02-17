@@ -1,4 +1,4 @@
-var menu_labels = ["projects","about"];
+var menu_labels = ["weeks","projects","about"];
 var canv;
 var background_color;
 var canvasDiv;
@@ -17,7 +17,7 @@ function setup() {
     canv.position(sketch_border,sketch_border);
     canv.parent('sketch1');
 
-    top_menu = new Menu(menu_labels,'menu_up');
+    top_menu = new Menu(menu_labels,'menu_up',"./");
 
     add_header_image();
     add_footer_text();
@@ -28,14 +28,16 @@ function setup() {
 }
 
 function add_aside_text() {
-    var twit = createDiv('<i>This Week in the Shack ...<br><br></i>');
+    var twit = createDiv('This Week in the Shack ...<br><br>');
     twit.parent('side1');
     twit.style('font-size: 20px');
 
     var twit2 = createDiv('We embark upon another week in the Shack. \
-    Not just any other week; this week, we unveil a new web site.');
+    Not just any week; this week, we unveil a new web site.');
     twit2.parent('side1');
     twit2.style('font: 16px Ariel,sans-serif');
+
+    unfade(twit.elt);
 }
 
 function add_header_image() {
