@@ -20,7 +20,7 @@ class Menu {
     }
 
     select() {
-        console.log(this.elt.outerText);
+        // console.log(this.elt.outerText);
         var new_page = "./" + this.elt.outerText;
         window.open(new_page, "_self");
     }
