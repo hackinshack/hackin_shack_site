@@ -1,9 +1,13 @@
+var menu_buttons = [];
 var menu_labels = ["projects","about"];
 var canv;
 var background_color;
 var canvasDiv;
+var container;
+var standard_height = 450;
 var sketch_width, sketch_height;
 var sketch_border = 10;
+var header_img;
 var top_menu;
 let back_sketch;
 

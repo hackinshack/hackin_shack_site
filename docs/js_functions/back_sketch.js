@@ -3,8 +3,10 @@ let sketch = function(p) {
     let img;
 
     p.preload = function() {
-        img = loadImage('images/cropped-blue_vert.jpg', img => {
-            img.resize(windowWidth,0);
+
+    img = loadImage('images/tools.jpg', img => {
+        // img = loadImage('images/cropped-blue_vert.jpg', img => {
+        img.resize(windowWidth,0);
             p.image(img, 0, 0);
         });
     }
@@ -19,7 +21,7 @@ let sketch = function(p) {
     };
 
     p.draw = function() {
-        p.background(0);
+        p.background(0,0,0);
         p.tint(255,100);
         p.image(img, 0, 0);
     };
