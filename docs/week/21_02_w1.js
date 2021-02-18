@@ -31,10 +31,9 @@ function draw() {
 }
 
 function add_aside_text() {
-    var twit = createDiv('Projects');
+    var twit = createDiv('This Week');
     twit.parent('side1');
     twit.style('font-size: 24px');
-
 }
 
 function windowResized() {

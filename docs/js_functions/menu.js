@@ -1,11 +1,10 @@
 class Menu {
 
-    constructor(labels, parentID, path_to_images) {
+    constructor(labels, parentID) {
         this.labels = labels;
         this.parent_id = parentID;
         this.buttons = [];
         this.home_button;
-        this.images_path = path_to_images;
         this.create();
     }
 
@@ -17,9 +16,9 @@ class Menu {
         this.homeButton.style('float','right');
         this.homeButton.class('button');
 
-        var html_text = "<img src=\"" + this.images_path + "images/Logo2019shack.png\" width=\"28\" height=\"21\"/>"
+        var html_text = "<img src=\" /docs/images/Logo2019shack.png\" width=\"28\" height=\"21\"/>"
         this.homeButton.html(html_text);
-        this.homeButton.mousePressed(function() {window.open("./index.html", "_self");})
+        this.homeButton.mousePressed(function() {window.open("/docs", "_self");})
 
         // add menu items:
         for (var i=0; i<this.labels.length; i++) {
@@ -34,7 +33,7 @@ class Menu {
 
     select() {
         // console.log(this.elt.outerText);
-        var new_page = "./" + this.elt.outerText;
+        var new_page = "/docs/" + this.elt.outerText;
         window.open(new_page, "_self");
     }
 }

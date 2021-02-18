@@ -14,8 +14,8 @@ body {
   margin: 2em auto;
   /* font: .9em/1.2 Arial, Helvetica, sans-serif; */
   font: 16px Ariel, sans-serif;
-  /* background-color: rgba(150, 150, 150, 0.5); */
-  background-image: url("../images/tools.jpg");
+  background-color: black;
+  background-image: url("/docs/images/tools.jpg");
 }
 
 /* .img-container {
@@ -27,7 +27,7 @@ body {
   z-index: 2;
   display: grid;
   grid-template-columns: 4fr 8fr;
-  grid-gap: 1em;
+  /* grid-gap: .5em; */
 }
 
 .button {
@@ -80,7 +80,8 @@ menu {
 article {
   grid-column: span 2;
   grid-row: 3;
-  /* border: 2px solid white; */
+  border: 2px white;
+  /* border-style: none none solid none; */
   /* border-radius: 5px; */
   /* background-color: rgb(197, 198, 240); */
   min-height: 500px;
@@ -91,16 +92,17 @@ aside {
   /* transform: rotate(-30deg); */
   grid-column: span 2;
   grid-row: 4;
-  min-height: 40px;
-  /* border: 2px solid black; */
-  padding: 20px;
+  min-height: 20px;
+  border: 2px white;
+  /* border-style: none none solid none; */
+  padding: 2px 20px;
   text-decoration: none;
   font-size: 18px;
   color: white;
   display: grid;
   align-content: flex-end;
-  /* align-content: center; */
-  text-align: left;
+  /* justify-content: center; */
+  text-align: center;
 }
 
 footer {
