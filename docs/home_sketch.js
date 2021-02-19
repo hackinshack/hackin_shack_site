@@ -8,19 +8,15 @@ let back_sketch;
 function setup() {
     back_sketch = new p5(background_sketch);
     canvasDiv = document.getElementById('sketch1');
-    sketch_width = canvasDiv.offsetWidth -2*sketch_border;
-    sketch_height = canvasDiv.offsetHeight -2*sketch_border;
 
-    canv = createCanvas(sketch_width,sketch_height);
-    canv.position(sketch_border,sketch_border);
-    canv.parent('sketch1');
-
-    add_menu();
-    add_header_image();
-    add_footer_text();
-    add_aside_text();
+    resize();
     
-    background_color = color(250,200,100,200);
+    add_header_image();
+    add_menu();
+    add_aside_text();
+    add_footer_text();
+
+    background_color = Globals.get_orange();
 }
 
 function draw() {
@@ -34,20 +30,18 @@ function add_aside_text() {
     var twit = createDiv('Welcome!');
     twit.parent('side1');
     twit.style('font-size: 24px');
+}
 
-    // var twit2 = createDiv('We embark upon another week in the Shack. \
-    // Not just any week; this week, we unveil a new web site.');
-    // twit2.parent('side1');
-    // twit2.style('font: 16px Ariel,sans-serif');
+function resize() {
+    sketch_width = canvasDiv.offsetWidth -2*sketch_border;
+    sketch_height = canvasDiv.offsetHeight -2*sketch_border;
 
-    // unfade(twit.elt);
-    // unfade(twit2.elt);
+    canv = createCanvas(sketch_width,sketch_height);
+    canv.position(sketch_border,sketch_border);
+    canv.parent('sketch1');
 }
 
 function windowResized() {
-    sketch_width = canvasDiv.offsetWidth-2*sketch_border;
-    sketch_height = canvasDiv.offsetHeight-2*sketch_border;
-    canv = createCanvas(sketch_width,sketch_height);
-    canv.parent('sketch1');
+    resize();
     back_sketch.resize();
 }
