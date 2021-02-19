@@ -5,9 +5,10 @@ var sketch_width, sketch_height;
 var sketch_border = 10;
 let back_sketch;
 var footer_menu;
+var main_title = "Curling Projects"
 var aside_text = "Curling Projects"
 var rolling_list = ["simulator","desktop","table_top"];
-var rolling_titles = ["curling simulator project","desktop curling project","table top curling project"];
+var rolling_titles = ["curling simulator","desktop curling","table top curling"];
 var roll_container;
 
 function setup() {
@@ -31,8 +32,6 @@ function setup() {
 function draw() {
     clear();
     background(background_color);
-    fill(150,233,250,100);
-    ellipse(mouseX,mouseY,100,100);
 
     roll_container.update();
 }
@@ -51,8 +50,13 @@ function windowResized() {
     back_sketch.resize();
 }
 
+function mouseClicked() {
+    roll_container.mseClicked();
+}
+
 function opening_sketch() {
     fill(255);
-    textSize(20);
-    text("Wacky Curling Projects.",100,100);    
+    textSize(30);
+    textAlign(CENTER,CENTER);
+    text(main_title,width/2,100);    
 }

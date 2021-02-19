@@ -86,7 +86,7 @@ class Footer_Roll {
     constructor(item_list) {
         this.items = item_list;
         this.list_index = -1;
-        this.last_index = -1;
+        this.last_index = -2;
         this.parent_id = "menu_down";
         this.showList = false;
         this.create();
@@ -130,6 +130,12 @@ class Footer_Roll {
         } else return false;
     }
 
+    force_change(index) {
+        this.list_index = index;
+        this.last_index = -2;
+        this.showList=false;
+    }
+
     get_index() {
         return this.list_index;
     }
@@ -152,7 +158,7 @@ class Footer_Roll {
 
     listItems() {
         this.showList = true;
-        console.log("select list");
+        this.hasClicked = true;
     }
 }
 
@@ -168,6 +174,12 @@ class Roll_Container {
         this.draw_sketch;
         this.index = -1;
         this.sketch_name = "none";
+        this.text_links = [];
+        this.make_list();
+    }
+
+    mseClicked() {
+        for (var i = 0; i < this.text_links.length; i++) this.text_links[i].mseClicked();
     }
 
     update() {
@@ -177,13 +189,12 @@ class Roll_Container {
         if (this.menu.has_clicked()) {
             try {
                 this.draw_sketch = eval(this.sketch_name);
-                this.show();
             } catch (err) {
                 return;
             }
-
+            if (this.menu.showList) this.show_list();
             this.draw_sketch();
-            
+
         } else this.opening_sketch();
     }
 
@@ -205,6 +216,11 @@ class Roll_Container {
         }
     }
 
+    force_change(index) {
+        this.menu.force_change(index);
+        this.update();
+    }
+
     load_function(url) {
         var head = document.head;
         var script = document.createElement('script');
@@ -213,15 +229,72 @@ class Roll_Container {
         head.appendChild(script);
     }
 
-    show() {
-        fill(255);
-        textSize(20);
-        textAlign(CENTER, CENTER);
-        text(this.titles[this.index], width / 2, height / 10);
+    make_list() {
+        for (var i = 0; i < this.items.length; i++) {
+            var x = width / 2;
+            var y = height / 2 + i * 30;
+            var text_size = 20;
+            this.text_links[i] = new Text_Link(this, this.titles[i], i, x, y, text_size);
+        }
     }
 
     show_list() {
-
+        this.draw_sketch = this.opening_sketch;
+        for (var i = 0; i < this.text_links.length; i++) this.text_links[i].update();
     }
 
+}
+
+// ------------- Text_link ----------------------
+// shows desired sketch when clicked
+
+class Text_Link {
+
+    constructor(parent_c, show_text, link_id, xpos, ypos, tsize) {
+        this.parent = parent_c;
+        this.x = xpos
+        this.y = ypos;
+        this.text = show_text;
+        this.link = link_id;
+        this.size = tsize;
+        this.width = textWidth(this.text);
+        this.height = tsize;
+        this.overColor = color(0, 0, 255);
+        this.xmin;
+        this.xmax;
+        this.ymin;
+        this.ymax;
+        textSize(this.size);
+        this.myBounds();
+    }
+
+    update() {
+        if (this.isOver()) fill(this.overColor);
+        else fill(255);
+        textAlign(CENTER, CENTER);
+        textSize(this.size);
+        text(this.text, this.x, this.y);
+    }
+
+    myBounds() {
+        this.xmin = this.x - this.width / 2;
+        this.xmax = this.x + this.width / 2;
+        this.ymin = this.y - this.height / 2;
+        this.ymax = this.y + this.height / 2;
+    }
+
+    mseClicked() {
+        if (this.isOver()) {
+            this.parent.force_change(this.link);
+        }
+    }
+
+    isOver() {
+        if (mouseX > this.xmin && mouseX < this.xmax) {
+            if (mouseY > this.ymin && mouseY < this.ymax) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
