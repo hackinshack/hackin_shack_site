@@ -6,7 +6,12 @@ var sketch_border = 10;
 let back_sketch;
 var list_function;
 var footer_menu;
+
+var main_title = "This Week ...";
+var aside_text = "This Week";
 var rolling_list = ["w1_21_02"];
+var rolling_titles = ["Week 1, Feb 2021"];
+var roll_container;
 
 function setup() {
     back_sketch = new p5(background_sketch);
@@ -18,36 +23,23 @@ function setup() {
     canv.position(sketch_border,sketch_border);
     canv.parent('sketch1');
 
+    roll_container = new Roll_Container(rolling_list,rolling_titles,opening_sketch);
+
+    background_color = Globals.get_pink();
     add_menu();
     add_header_image();
-    add_aside_text();
-    // add_footer_menu(project_cat,"projects");
-    footer_menu = add_footer_roll(rolling_list);
-    
-    background_color = Globals.get_green();
-    list_function = opening_sketch;
-
+    add_aside_text(aside_text);
 }
 
 function draw() {
     clear();
     background(background_color);
-    fill(150,233,250,100);
-    ellipse(mouseX,mouseY,100,100);
 
-    
-    list_function();
-
-    if (footer_menu.has_clicked()) footer_menu.update();
-    if (footer_menu.item_changed()) {
-        var ind = footer_menu.get_index();
-        list_function = eval(rolling_list[ind]);
-    }
-    
+    roll_container.update(); 
 }
 
-function add_aside_text() {
-    var twit = createDiv('This Week ...');
+function add_aside_text(txt_string) {
+    var twit = createDiv(txt_string);
     twit.parent('side1');
     twit.style('font-size: 24px');
 }
@@ -60,23 +52,17 @@ function windowResized() {
     back_sketch.resize();
 }
 
-// experimental:
-function w1_21_02() {
-    fill(255);
-    text("Week 1 February 2021",100,100);
+function touchStarted() {
+    roll_container.mseClicked();
 }
 
-function desktop_curling() {
-    fill(255);
-    text("desktop curling project",100,100);
-}
-
-function p5_demos() {
-    fill(255);
-    text("p5 demos",100,100);
+function mouseClicked() {
+    roll_container.mseClicked();
 }
 
 function opening_sketch() {
     fill(255);
-    text("opening sketch",100,100);    
+    textSize(30);
+    textAlign(CENTER,CENTER);
+    text(main_title,width/2,100);    
 }

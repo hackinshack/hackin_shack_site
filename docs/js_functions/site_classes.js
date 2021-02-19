@@ -204,13 +204,13 @@ class Roll_Container {
         var new_script = this.sketch_name + ".js";
         try {
             eval(this.sketch_name);
-            console.log("function is already loaded.");
+            // console.log("function is already loaded.");
         } catch (err) {
             try {
                 this.load_function(new_script);
-                console.log("trying to load function.");
+                // console.log("trying to load function.");
             } catch (err) {
-                console.log("could not load function.", err);
+                // console.log("could not load function.", err);
                 return;
             }
         }

@@ -5,6 +5,7 @@ var sketch_width, sketch_height;
 var sketch_border = 10;
 let back_sketch;
 var footer_menu;
+
 var main_title = "Curling Projects"
 var aside_text = "Curling Projects"
 var rolling_list = ["simulator","desktop","table_top"];
@@ -50,7 +51,8 @@ function windowResized() {
     back_sketch.resize();
 }
 
-function mouseClicked() {
+// the "clicked" function does not seem to work on iphone -- need "pressed
+function mousePressed() {
     roll_container.mseClicked();
 }
 
