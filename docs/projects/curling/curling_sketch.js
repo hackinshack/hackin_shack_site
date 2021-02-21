@@ -12,6 +12,12 @@ var rolling_list = ["opening","simulator","desktop","table_top"];
 var rolling_titles = ["opening sketch","curling simulator","desktop curling","table top curling"];
 var roll_container;
 
+var backgroung_image;
+
+function preload() {
+    background_image = loadImage('/docs/images/cape_cod_curling.jpg');
+}
+
 function setup() {
     back_sketch = new p5(background_sketch);
     canvasDiv = document.getElementById('sketch1');
@@ -32,8 +38,9 @@ function setup() {
 
 function draw() {
     clear();
+    // image(background_image,0,0);
     background(background_color);
-
+    // tint(255,0);
     roll_container.update();
 }
 
@@ -58,11 +65,24 @@ function mousePressed() {
 
 function opening(fresh_load) {
     if (fresh_load) {
+        clear_article();
 
+        // var body = select('body');
+        // body.style('background-image: url("/docs/images/cape_cod_curling.jpg"');
+        // back_sketch.canv.style('opacity', 0.7);
+
+        // var body = select('article');
+        // body.style('background-image: url("/docs/images/cape_cod_curling.jpg"');
+        // back_sketch.canv.style('opacity', 0.7);
+
+
+    
     }
 
-    fill(255);
-    textSize(30);
-    textAlign(CENTER,CENTER);
-    text("opening sketch",width/2,100);    
+    roll_container.show_list();
+    
+    // fill(255);
+    // textSize(30);
+    // textAlign(CENTER,CENTER);
+    // text("Curling",width/2,100);    
 }

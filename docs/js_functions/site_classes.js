@@ -39,6 +39,7 @@ class Main_Menu {
         this.add_home = addHome;
         this.parent_dir = parentDir;
         this.button_class = btn_class;
+        this.list_div;
         this.create();
     }
 
@@ -88,9 +89,7 @@ class Footer_Roll {
         this.list_index = 0;
         this.last_index = 0;
         this.parent_id = "menu_down";
-        // this.showList = false;
         this.create();
-        // this.hasClicked = false;
     }
 
     create() {
@@ -133,33 +132,22 @@ class Footer_Roll {
     force_change(index) {
         this.list_index = index;
         this.last_index = -1;
-        // this.showList=false;
     }
 
     get_index() {
         return this.list_index;
     }
 
-    // has_clicked() {
-    //     return this.hasClicked;
-    // }
-
     nextItem() {
-        // this.hasClicked = true;
         this.list_index++;
-        // this.showList = false;
     }
 
     prevItem() {
-        // this.hasClicked = true;
         this.list_index--;
-        // this.showList = false;
     }
 
     listItems() {
         this.force_change(0);
-        // this.showList = true;
-        // this.hasClicked = true;
     }
 }
 
@@ -212,10 +200,10 @@ class Roll_Container {
 
         try {
             this.draw_sketch = eval(this.sketch_name);
-            console.log("function is already loaded.", this.sketch_name);
+            // console.log("function is already loaded.", this.sketch_name);
         } catch {
             this.load_function(this.sketch_name);
-            console.log("loading new sketch");
+            // console.log("loading new sketch");
         }
     }
 
@@ -225,33 +213,38 @@ class Roll_Container {
     }
 
     load_function(func_name) {
-        // var new_func = function(){};
         var url = func_name + ".js";
-        // func_name = new_func;
-
         var head = document.head;
         var script = document.createElement('script');
         script.setAttribute("type", "text/javascript");
         script.setAttribute("src", url);
         head.appendChild(script);
-
-        // new_func = eval(func_name);
-        // console.log("new function = ",new_func);
-        // console.log("new function = ",new_func);
     }
 
     make_list() {
+
+        var x_offset = 60;
+        var y_offset = 30;
+        var vert_spacer = 30;
+        var text_size = 18;
+
         for (var i = 0; i < this.items.length; i++) {
-            var x = width / 2;
-            var y = height / 2 + i * 30;
-            var text_size = 20;
+            var x = x_offset;
+            var y = y_offset + i * vert_spacer;
             this.footer_links[i] = new Footer_Link(this, this.titles[i], i, x, y, text_size);
         }
+
+        // for (var i = 0; i < this.items.length; i++) {
+        //     var x = width / 2;
+        //     var y = 2*height / 3 + i * 30;
+        //     var text_size = 20;
+        //     this.footer_links[i] = new Footer_Link(this, this.titles[i], i, x, y, text_size);
+        // }
     }
 
     show_list() {
         this.draw_sketch = this.opening_sketch;
-        for (var i = 0; i < this.footer_links.length; i++) this.footer_links[i].show();
+        for (var i = 1; i < this.footer_links.length; i++) this.footer_links[i].show();
     }
 
 }
@@ -280,18 +273,34 @@ class Footer_Link {
     }
 
     show() {
-        if (this.isOver()) fill(this.overColor);
-        else fill(255);
-        textAlign(CENTER, CENTER);
+        var underline_offset = 1;
+        if (this.isOver()) {
+            fill(this.overColor);
+            stroke(this.overColor);
+        }
+        else {
+            fill(255);
+            stroke(255);
+        }
+
+        // textAlign(CENTER, CENTER);
+        // textStyle(NORMAL);
+        textAlign(LEFT,TOP);
         textSize(this.size);
         text(this.text, this.x, this.y);
+        line(this.xmin,this.ymax+underline_offset,this.xmax,this.ymax+underline_offset);
     }
 
     myBounds() {
-        this.xmin = this.x - this.width / 2;
-        this.xmax = this.x + this.width / 2;
-        this.ymin = this.y - this.height / 2;
-        this.ymax = this.y + this.height / 2;
+        // this.xmin = this.x - this.width / 2;
+        // this.xmax = this.x + this.width / 2;
+        // this.ymin = this.y - this.height / 2;
+        // this.ymax = this.y + this.height / 2;
+
+        this.xmin = this.x ;
+        this.xmax = this.x + this.width;
+        this.ymin = this.y;
+        this.ymax = this.y + this.height;
     }
 
     mseClicked() {

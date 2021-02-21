@@ -9,8 +9,8 @@ var footer_menu;
 
 var main_title = "This Week ...";
 var aside_text = "This Week";
-var rolling_list = ["w1_21_02"];
-var rolling_titles = ["Week 1, Feb 2021"];
+var rolling_list = ["opening","w1_21_02"];
+var rolling_titles = ["","Week 1, Feb 2021"];
 var roll_container;
 
 function setup() {
@@ -23,7 +23,7 @@ function setup() {
     canv.position(sketch_border,sketch_border);
     canv.parent('sketch1');
 
-    roll_container = new Roll_Container(rolling_list,rolling_titles,opening_sketch);
+    roll_container = new Roll_Container(rolling_list,rolling_titles);
 
     background_color = Globals.get_pink();
     add_menu();
@@ -60,7 +60,7 @@ function mouseClicked() {
     roll_container.mseClicked();
 }
 
-function opening_sketch() {
+function opening() {
     fill(255);
     textSize(30);
     textAlign(CENTER,CENTER);

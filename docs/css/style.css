@@ -52,6 +52,15 @@ body {
   cursor: pointer;
 }
 
+.sketch-div {
+  border: solid red;
+  border-radius: 5px;
+  color: white;
+  margin: 100px 100px;
+  font: 18px Ariel, sans-serif;
+  text-align: left;
+}
+
 IMG.displayed {
   display: block;
   margin-left: auto;
@@ -102,7 +111,7 @@ article {
   /* border-style: none none solid none; */
   /* border-radius: 5px; */
   /* background-color: rgb(197, 198, 240); */
-  min-height: 500px;
+  min-height: 400px;
   position: relative;
 }
 

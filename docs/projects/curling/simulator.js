@@ -7,8 +7,9 @@ function simulator(fresh_load=true) {
         
         var link = createA('', 'new simulator link');
         link.parent('sketch1');
-        link.position(300, 500);
+        link.position(0.3*width, 0.8*height);
         console.log("I'm creating a link");
+
     }
 
     fill(255);
