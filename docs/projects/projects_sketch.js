@@ -24,7 +24,6 @@ function setup() {
     add_header_image();
     add_aside_text();
     add_footer_menu(project_cat,"projects");
-    // footer_menu = add_footer_roll(project_list);
     
     background_color = color(250,200,100,200);
     project_function = opening_sketch;
@@ -36,6 +35,7 @@ function draw() {
     background(background_color);
     fill(150,233,250,100);
     ellipse(mouseX,mouseY,100,100);
+
     project_function();
 
     // if (footer_menu.has_clicked()) footer_menu.update();

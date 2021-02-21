@@ -85,12 +85,12 @@ class Footer_Roll {
 
     constructor(item_list) {
         this.items = item_list;
-        this.list_index = -1;
-        this.last_index = -2;
+        this.list_index = 0;
+        this.last_index = 0;
         this.parent_id = "menu_down";
-        this.showList = false;
+        // this.showList = false;
         this.create();
-        this.hasClicked = false;
+        // this.hasClicked = false;
     }
 
     create() {
@@ -132,33 +132,34 @@ class Footer_Roll {
 
     force_change(index) {
         this.list_index = index;
-        this.last_index = -2;
-        this.showList=false;
+        this.last_index = -1;
+        // this.showList=false;
     }
 
     get_index() {
         return this.list_index;
     }
 
-    has_clicked() {
-        return this.hasClicked;
-    }
+    // has_clicked() {
+    //     return this.hasClicked;
+    // }
 
     nextItem() {
-        this.hasClicked = true;
+        // this.hasClicked = true;
         this.list_index++;
-        this.showList = false;
+        // this.showList = false;
     }
 
     prevItem() {
-        this.hasClicked = true;
+        // this.hasClicked = true;
         this.list_index--;
-        this.showList = false;
+        // this.showList = false;
     }
 
     listItems() {
-        this.showList = true;
-        this.hasClicked = true;
+        this.force_change(0);
+        // this.showList = true;
+        // this.hasClicked = true;
     }
 }
 
@@ -166,53 +167,55 @@ class Footer_Roll {
 
 class Roll_Container {
 
-    constructor(item_list, item_titles, base_sketch) {
+    constructor(item_list, item_titles) {
         this.items = item_list;
         this.titles = item_titles;
         this.menu = add_footer_roll(this.items);
-        this.opening_sketch = base_sketch;
-        this.draw_sketch;
+        this.sketch_name = this.items[0];
+        this.draw_sketch = eval(this.sketch_name);
         this.index = -1;
-        this.sketch_name = "none";
-        this.text_links = [];
+        this.footer_links = [];
+        this.fresh_load = true;
         this.make_list();
     }
 
     mseClicked() {
-        for (var i = 0; i < this.text_links.length; i++) this.text_links[i].mseClicked();
+        for (var i = 0; i < this.footer_links.length; i++) this.footer_links[i].mseClicked();
     }
 
     update() {
-        if (this.menu.has_clicked()) this.menu.update();
-        if (this.menu.item_changed()) this.swap_functions();
 
-        if (this.menu.has_clicked()) {
-            try {
-                this.draw_sketch = eval(this.sketch_name);
-            } catch (err) {
-                return;
-            }
-            if (this.menu.showList) this.show_list();
-            this.draw_sketch();
+        this.menu.update();
 
-        } else this.opening_sketch();
+        // doing this to avoid figuring out how to use async functions.
+        // it will just skip the draw loop until the next is loaded and recognized,
+        // rather than wait for a promise to be fulfilled.
+        // something to grow on.
+        try {
+            this.draw_sketch = eval(this.sketch_name);
+        } catch (err) {
+            return;
+        }
+
+        if (this.menu.item_changed()) {
+            this.swap_functions();
+            this.fresh_load = true;
+        } else {
+            this.draw_sketch(this.fresh_load);
+            this.fresh_load = false;
+        }
     }
 
     swap_functions() {
         this.index = this.menu.get_index();
         this.sketch_name = this.items[this.index];
-        var new_script = this.sketch_name + ".js";
+
         try {
-            eval(this.sketch_name);
-            // console.log("function is already loaded.");
-        } catch (err) {
-            try {
-                this.load_function(new_script);
-                // console.log("trying to load function.");
-            } catch (err) {
-                // console.log("could not load function.", err);
-                return;
-            }
+            this.draw_sketch = eval(this.sketch_name);
+            console.log("function is already loaded.", this.sketch_name);
+        } catch {
+            this.load_function(this.sketch_name);
+            console.log("loading new sketch");
         }
     }
 
@@ -221,12 +224,20 @@ class Roll_Container {
         this.update();
     }
 
-    load_function(url) {
+    load_function(func_name) {
+        // var new_func = function(){};
+        var url = func_name + ".js";
+        // func_name = new_func;
+
         var head = document.head;
         var script = document.createElement('script');
         script.setAttribute("type", "text/javascript");
         script.setAttribute("src", url);
         head.appendChild(script);
+
+        // new_func = eval(func_name);
+        // console.log("new function = ",new_func);
+        // console.log("new function = ",new_func);
     }
 
     make_list() {
@@ -234,21 +245,21 @@ class Roll_Container {
             var x = width / 2;
             var y = height / 2 + i * 30;
             var text_size = 20;
-            this.text_links[i] = new Text_Link(this, this.titles[i], i, x, y, text_size);
+            this.footer_links[i] = new Footer_Link(this, this.titles[i], i, x, y, text_size);
         }
     }
 
     show_list() {
         this.draw_sketch = this.opening_sketch;
-        for (var i = 0; i < this.text_links.length; i++) this.text_links[i].update();
+        for (var i = 0; i < this.footer_links.length; i++) this.footer_links[i].show();
     }
 
 }
 
-// ------------- Text_link ----------------------
-// shows desired sketch when clicked
+// ------------- Footer_link ----------------------
+// shows desired sketch when clicked based on footer_roll items
 
-class Text_Link {
+class Footer_Link {
 
     constructor(parent_c, show_text, link_id, xpos, ypos, tsize) {
         this.parent = parent_c;
@@ -268,7 +279,7 @@ class Text_Link {
         this.myBounds();
     }
 
-    update() {
+    show() {
         if (this.isOver()) fill(this.overColor);
         else fill(255);
         textAlign(CENTER, CENTER);

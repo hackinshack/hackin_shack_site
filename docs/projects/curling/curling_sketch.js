@@ -8,8 +8,8 @@ var footer_menu;
 
 var main_title = "Curling Projects"
 var aside_text = "Curling Projects"
-var rolling_list = ["simulator","desktop","table_top"];
-var rolling_titles = ["curling simulator","desktop curling","table top curling"];
+var rolling_list = ["opening","simulator","desktop","table_top"];
+var rolling_titles = ["opening sketch","curling simulator","desktop curling","table top curling"];
 var roll_container;
 
 function setup() {
@@ -22,7 +22,7 @@ function setup() {
     canv.position(sketch_border,sketch_border);
     canv.parent('sketch1');
 
-    roll_container = new Roll_Container(rolling_list,rolling_titles,opening_sketch);
+    roll_container = new Roll_Container(rolling_list,rolling_titles);
 
     background_color = Globals.get_green();
     add_menu();
@@ -51,14 +51,18 @@ function windowResized() {
     back_sketch.resize();
 }
 
-// the "clicked" function does not seem to work on iphone -- need "pressed
+// the "clicked" function does not seem to work on iphone -- need "pressed"
 function mousePressed() {
     roll_container.mseClicked();
 }
 
-function opening_sketch() {
+function opening(fresh_load) {
+    if (fresh_load) {
+
+    }
+
     fill(255);
     textSize(30);
     textAlign(CENTER,CENTER);
-    text(main_title,width/2,100);    
+    text("opening sketch",width/2,100);    
 }
