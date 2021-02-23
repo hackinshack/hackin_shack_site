@@ -100,7 +100,8 @@ class Footer_Roll {
         this.nextButton.class('footer-button');
         this.nextButton.mousePressed(this.nextItem.bind(this));
 
-        this.listButton = createButton("list");
+        // this.listButton = createButton("list");
+        this.listButton = createButton("O");
         this.listButton.parent(this.parent_id);
         this.listButton.style('float', 'right');
         this.listButton.class('footer-button');
@@ -218,6 +219,7 @@ class Roll_Container {
         var script = document.createElement('script');
         script.setAttribute("type", "text/javascript");
         script.setAttribute("src", url);
+        // script.onload = func_name;  // runs func_name as soon as script it loaded.
         head.appendChild(script);
     }
 
@@ -277,18 +279,17 @@ class Footer_Link {
         if (this.isOver()) {
             fill(this.overColor);
             stroke(this.overColor);
-        }
-        else {
+        } else {
             fill(255);
             stroke(255);
         }
 
         // textAlign(CENTER, CENTER);
         // textStyle(NORMAL);
-        textAlign(LEFT,TOP);
+        textAlign(LEFT, TOP);
         textSize(this.size);
         text(this.text, this.x, this.y);
-        line(this.xmin,this.ymax+underline_offset,this.xmax,this.ymax+underline_offset);
+        line(this.xmin, this.ymax + underline_offset, this.xmax, this.ymax + underline_offset);
     }
 
     myBounds() {
@@ -297,7 +298,7 @@ class Footer_Link {
         // this.ymin = this.y - this.height / 2;
         // this.ymax = this.y + this.height / 2;
 
-        this.xmin = this.x ;
+        this.xmin = this.x;
         this.xmax = this.x + this.width;
         this.ymin = this.y;
         this.ymax = this.y + this.height;

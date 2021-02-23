@@ -52,6 +52,7 @@ function add_header_image() {
 
 function add_footer_text() {
     var f = select('#menu_down');
+    f.style('display:grid');
     f.html('Let&#39s make something.', true);
     return f;
 }
@@ -66,10 +67,29 @@ function clear_article() {
     // a.remove();
 }
 
+function set_body_background(img) {
+    var body = select('body');
+    if (img=='none') {
+        body.style('background-image: none');
+    }
+    else {
+        var img_string = 'background-image: url("/docs/images/' + img + '"';
+        body.style(img_string);
+    }
+}
+
 function remove_article() {
     var a = selectAll("#sketch1");
     console.log(a);
     // a.elt.remove();
+}
+
+function set_sketch_opacity(op) {
+    var opacity = op;
+    if (opacity <= 1) opacity = 255*opacity;
+    var c = background_color;
+    background_color = color(red(c),green(c),blue(c),opacity);
+    // console.log(red(c));
 }
 
 // functions to fade elements in and out:

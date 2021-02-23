@@ -60,12 +60,12 @@ body {
   font: 18px Ariel, sans-serif;
   text-align: left;
 }
-
+/* 
 IMG.displayed {
   display: block;
   margin-left: auto;
   margin-right: auto;
-}
+} */
 
 header {
   grid-column: span 2;
@@ -93,10 +93,11 @@ footer {
   background-color: rgba(150, 150, 150, 0.5);
   color: rgb(255, 255, 255);
   min-height: 40px;
-  display:inline-block;
+  display: inline-block;
   align-content: center;
   justify-content: center;
   text-align: right;
+  text-justify: center;
 }
 
 menu {
@@ -130,14 +131,6 @@ aside {
   align-content: flex-end;
   /* justify-content: center; */
   text-align: center;
-}
-
-footer {
-  grid-column: span 2;
-  grid-row: 5;
-  font-size: 20px;
-  justify-content: center;
-  /* text-align: right; */
 }
 
 /* structure for larger screens:*/

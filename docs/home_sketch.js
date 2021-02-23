@@ -29,7 +29,7 @@ function draw() {
 function add_aside_text() {
     var twit = createDiv('Welcome!');
     twit.parent('side1');
-    twit.style('font-size: 24px');
+    twit.style('font-size: 20px');
 }
 
 function resize() {
@@ -45,3 +45,22 @@ function windowResized() {
     resize();
     back_sketch.resize();
 }
+
+
+var loadJS = function(url, implementationCode, location){
+    //url is URL of external file, implementationCode is the code
+    //to be called from the file, location is the location to 
+    //insert the <script> element
+
+    var scriptTag = document.createElement('script');
+    scriptTag.src = url;
+
+    scriptTag.onload = implementationCode;
+    scriptTag.onreadystatechange = implementationCode;
+
+    location.appendChild(scriptTag);
+};
+var yourCodeToBeCalled = function(){
+//your code goes here
+}
+loadJS('yourcode.js', yourCodeToBeCalled, document.body);

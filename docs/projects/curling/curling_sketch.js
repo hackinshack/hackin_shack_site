@@ -31,6 +31,8 @@ function setup() {
     roll_container = new Roll_Container(rolling_list,rolling_titles);
 
     background_color = Globals.get_green();
+
+
     add_menu();
     add_header_image();
     add_aside_text(aside_text);
@@ -39,8 +41,10 @@ function setup() {
 function draw() {
     clear();
     // image(background_image,0,0);
+    // background(background_image);
     background(background_color);
-    // tint(255,0);
+
+    tint(255,100);
     roll_container.update();
 }
 
@@ -66,6 +70,9 @@ function mousePressed() {
 function opening(fresh_load) {
     if (fresh_load) {
         clear_article();
+        set_body_background('none');
+        // set_body_background('cape_cod_curling.jpg');
+        set_sketch_opacity(200);
 
         // var body = select('body');
         // body.style('background-image: url("/docs/images/cape_cod_curling.jpg"');

@@ -62,20 +62,20 @@ function windowResized() {
 }
 
 // experimental:
-function curling_simulator() {
-    fill(255);
-    text("curling simulator project",100,100);
-}
+// function curling_simulator() {
+//     fill(255);
+//     text("curling simulator project",100,100);
+// }
 
-function desktop_curling() {
-    fill(255);
-    text("desktop curling project",100,100);
-}
+// function desktop_curling() {
+//     fill(255);
+//     text("desktop curling project",100,100);
+// }
 
-function p5_demos() {
-    fill(255);
-    text("p5 demos",100,100);
-}
+// function p5_demos() {
+//     fill(255);
+//     text("p5 demos",100,100);
+// }
 
 function opening_sketch() {
     fill(255);
