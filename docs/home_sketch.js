@@ -41,26 +41,27 @@ function resize() {
     canv.parent('sketch1');
 }
 
+// this is a p5 function:
 function windowResized() {
     resize();
     back_sketch.resize();
 }
 
 
-var loadJS = function(url, implementationCode, location){
-    //url is URL of external file, implementationCode is the code
-    //to be called from the file, location is the location to 
-    //insert the <script> element
+// var loadJS = function(url, implementationCode, location){
+//     //url is URL of external file, implementationCode is the code
+//     //to be called from the file, location is the location to 
+//     //insert the <script> element
 
-    var scriptTag = document.createElement('script');
-    scriptTag.src = url;
+//     var scriptTag = document.createElement('script');
+//     scriptTag.src = url;
 
-    scriptTag.onload = implementationCode;
-    scriptTag.onreadystatechange = implementationCode;
+//     scriptTag.onload = implementationCode;
+//     scriptTag.onreadystatechange = implementationCode;
 
-    location.appendChild(scriptTag);
-};
-var yourCodeToBeCalled = function(){
-//your code goes here
-}
-loadJS('yourcode.js', yourCodeToBeCalled, document.body);
+//     location.appendChild(scriptTag);
+// };
+// var yourCodeToBeCalled = function(){
+// //your code goes here
+// }
+// loadJS('yourcode.js', yourCodeToBeCalled, document.body);

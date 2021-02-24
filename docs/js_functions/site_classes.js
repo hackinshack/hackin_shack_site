@@ -8,7 +8,7 @@ class Globals {
     static get sketch_border() {
         return 10;
     }
-
+    
     // a few useful colors to keep things consistent:
     static get_orange() {
         return color(250, 200, 100, 200);
@@ -235,13 +235,6 @@ class Roll_Container {
             var y = y_offset + i * vert_spacer;
             this.footer_links[i] = new Footer_Link(this, this.titles[i], i, x, y, text_size);
         }
-
-        // for (var i = 0; i < this.items.length; i++) {
-        //     var x = width / 2;
-        //     var y = 2*height / 3 + i * 30;
-        //     var text_size = 20;
-        //     this.footer_links[i] = new Footer_Link(this, this.titles[i], i, x, y, text_size);
-        // }
     }
 
     show_list() {
