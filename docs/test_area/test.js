@@ -12,13 +12,12 @@ function setup() {
 }
 
 function draw() {
-    // call the standard_page update function
-    // which will redraw the canvases attached to each article
-    // standard_page.display_graphics();
+    // draw is taken care of in the individual sketches on the page
+    
 }
 
 function windowResized() {
-    // call the standard_page resize function
+    standard_page.resize();
 }
 
 // add the draw functions associated with each article: 
@@ -41,8 +40,4 @@ function draw2(sketch) {
     // console.log("all up in 2");
 }
 
-// function draw_buffer(pg_graphic) {
-//     var pg = pg_graphic;
-//     pg.background(random(255),random(255),random(255));
-// }
 

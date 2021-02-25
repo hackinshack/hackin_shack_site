@@ -8,6 +8,7 @@ class Standard_Page {
         this.sketch = [];
         this.draw = draw_functions;
 
+        this.sketchDiv;
         this.sketch_width = 400; 
         this.sketch_height = 400;
         this.sketch_border = 10;
@@ -19,11 +20,11 @@ class Standard_Page {
 
         this.media_is_wide = window.matchMedia('(min-width: 576px)');
         this.media_is_wide.addEventListener('change', this.set_element_grid);
+        // window.addEventListener('orientationchange',this.resize);
 
         this.create_sections();
         this.set_element_grid();
         this.add_sketches();
-        // this.create_graphics_buffers();
     }
 
     create_sections() {
@@ -40,6 +41,8 @@ class Standard_Page {
             new_element.parent(select('.container'));
             this.articles.push(new_element);
         }
+
+        this.sketchDiv = this.articles[0].elt;
     }
 
     // bind this function to the Standard_Page object:
@@ -72,6 +75,7 @@ class Standard_Page {
             var elt = select('footer');
             elt.style('grid-row', 3 + 2 * this.sections);
         }
+
     }).bind(this);
 
     add_sketches() {
@@ -85,8 +89,17 @@ class Standard_Page {
             }
             p.draw = function () {
                 p.draw_loop(this);
+
+                // safari on the iphone screws up unless this is in here (not necessary on other devices):
+                if (self.articles[0].elt.offsetWidth != self.sketch_width + 2 * self.sketch_border) {
+                    self.resize();
+                }
             }
             p.resize = function () {
+                var article = self.articles[0].elt;
+                self.sketch_width = article.offsetWidth - 2 * self.sketch_border;
+                self.sketch_height = article.offsetHeight - 2 * self.sketch_border;
+
                 p.canv = p.createCanvas(self.sketch_width, self.sketch_height);
                 p.canv.position(self.sketch_border, self.sketch_border);
               }
@@ -97,23 +110,7 @@ class Standard_Page {
             this.sketch[i] = new p5(sketch, this.articles[i].elt);
         }
 
-        // this.sketch[0].position(200,200);
-
     }
-
-    // draw_loop() {
-    //     // console.log("bump out");
-
-    // }
-
-    // create_graphics_buffers() {
-
-    //     for (var i=0; i<this.sections; i++) {
-    //         var rect = this.articles[i].elt.getBoundingClientRect();
-    //         this.buffers[i] = new Embedded_Graphic(rect.x,rect.y,rect.width,rect.height,this.draw_buffer);
-    //         console.log(rect);
-    //     }
-    // }
 
     add_header_image() {
         var header_img = createImg('/docs/images/logo_side_4.png', 'logo');
@@ -129,36 +126,9 @@ class Standard_Page {
         return f;
     }
 
-    // display_graphics() {
-    //     for (var i = 0; i < this.sections; i++) {
-    //         this.buffers[i].display();
-    //     }
-    // }
-
-    // draw_buffer(pg_graphic) {
-    //     var pg = pg_graphic;
-    //     pg.background(200, 200, 100);
-    //     pg.ellipse(mouseX, mouseY, 50, 50);
-    // }
+    resize() {
+        for (var i = 0; i < this.sections; i++) {
+            this.sketch[i].resize();
+        }
+    }
 }
-
-// sketch template:
-// let e_sketch = function (p) {
-
-//     var parent;
-
-//     p.setup = function () {
-//         p.resize();
-//     };
-
-//     p.draw = function () {
-//         p.clear();
-//         parent.draw();
-//     };
-
-//     p.resize = function () {
-//         p.canv = p.createCanvas(parent.sketch_width, parent.sketch_height);
-//         p.canv.position(parent.sketch_border, parent.sketch_border);
-//         p.canv.parent(parent.parent_article);
-//     }
-// };
