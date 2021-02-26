@@ -1,35 +1,3 @@
-// global variables class:
-class Globals {
-    constructor() {}
-
-    // this doesn't work on iOS:
-    // static sketch_border = 10;
-    // need to use a getter function if you want to do it this way:
-    static get sketch_border() {
-        return 10;
-    }
-
-    // a few useful colors to keep things consistent:
-    static get_orange() {
-        return color(250, 200, 100, 200);
-    }
-    static get_blue() {
-        return color(100, 200, 250, 200);
-    }
-    static get_green() {
-        return color(200, 250, 100, 200);
-    }
-    static get_pink() {
-        return color(250, 100, 200, 150);
-    }
-    static get_rust() {
-        return color(200, 100, 100, 200);
-    }
-
-}
-
-
-
 // ------------------- Roll_Container --------------------------
 
 class Roll_Container {
@@ -38,7 +6,7 @@ class Roll_Container {
         this.items = item_list;
         this.titles = item_titles;
         this.menu = add_footer_roll(this.items);
-        // this.sketch = proto_sketch.sketch;
+        this.sketch = proto_sketch.sketch;
         this.function_name = this.items[0];
         this.draw_sketch = eval(this.function_name);
         this.index = -1;
@@ -69,7 +37,7 @@ class Roll_Container {
             this.swap_functions();
             this.fresh_load = true;
         } else {
-            this.draw_sketch(this.fresh_load);
+            this.draw_sketch(this.fresh_load, this.sketch);
             this.fresh_load = false;
         }
     }

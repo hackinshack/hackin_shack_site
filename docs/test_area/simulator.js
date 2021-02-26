@@ -1,0 +1,18 @@
+function simulator(fresh_load=true) {
+
+    // this is essentially "setup" for this chuck of code:
+    if (fresh_load) {
+
+        clear_article();
+        
+        var link = createA('', 'new simulator link');
+        link.parent('sketch1');
+        link.position(0.3*width, 0.8*height);
+        console.log("I'm creating a link");
+
+    }
+
+    fill(255);
+    textSize(30);
+    text("curling simulator project", width / 2, height / 2);
+}

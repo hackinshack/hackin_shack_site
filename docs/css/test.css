@@ -101,27 +101,24 @@ menu {
 article {
   grid-column: span 2;
   border: 2px white;
-  border-style: solid;
+  /* border-style: solid; */
   /* border-radius: 5px; */
-  background-color: rgb(197, 198, 240);
+  /* background-color: rgb(197, 198, 240); */
   min-height: 400px;
   position: relative;
 }
 
 aside {
-  /* transform: rotate(-30deg); */
   grid-column: span 2;
   min-height: 20px;
   border: 2px white;
-  background-color: rgb(45, 47, 165);
-  /* border-style: none none solid none; */
+  /* background-color: rgb(45, 47, 165); */
   padding: 0px 20px 30px 20px;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 24px;
   color: white;
   display: grid;
   align-content: flex-end;
-  /* justify-content: center; */
   text-align: center;
 }
 

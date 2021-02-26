@@ -1,54 +1,24 @@
-// global variables class:
-class Globals {
-    constructor() {}
+class Looper_Page extends Proto_Page {
 
-    // this doesn't work on iOS:
-    // static sketch_border = 10;
-    // need to use a getter function if you want to do it this way:
-    static get sketch_border() {
-        return 10;
-    }
+    constructor(function_list, link_labels) {
+        super(1,function_list);
 
-    // a few useful colors to keep things consistent:
-    static get_orange() {
-        return color(250, 200, 100, 200);
-    }
-    static get_blue() {
-        return color(100, 200, 250, 200);
-    }
-    static get_green() {
-        return color(200, 250, 100, 200);
-    }
-    static get_pink() {
-        return color(250, 100, 200, 150);
-    }
-    static get_rust() {
-        return color(200, 100, 100, 200);
-    }
+        this.items = function_list;
+        this.titles = link_labels;
+        this.menu = new Looper_Roll(this.items);
+        this.looper_links = this.make_looper_links();
 
-}
-
-
-
-// ------------------- Roll_Container --------------------------
-
-class Roll_Container {
-
-    constructor(item_list, item_titles, proto_sketch) {
-        this.items = item_list;
-        this.titles = item_titles;
-        this.menu = add_footer_roll(this.items);
-        // this.sketch = proto_sketch.sketch;
+        this.sketch = this.psketch[0].sketch;
         this.function_name = this.items[0];
-        this.draw_sketch = eval(this.function_name);
+        this.draw_sketch = eval(this.items[0]);
+
         this.index = -1;
-        this.footer_links = [];
-        this.fresh_load = true;
-        this.make_list();
+        this.looper_links = [];
+        this.fresh_load = true;  
     }
 
     mseClicked() {
-        for (var i = 0; i < this.footer_links.length; i++) this.footer_links[i].mseClicked();
+        for (var i = 0; i < this.looper_links.length; i++) this.looper_links[i].mseClicked();
     }
 
     update() {
@@ -101,29 +71,31 @@ class Roll_Container {
         head.appendChild(script);
     }
 
-    make_list() {
-
+    make_looper_links() {
         var x_offset = 60;
         var y_offset = 30;
         var vert_spacer = 30;
         var text_size = 18;
+        var links = [];
 
         for (var i = 0; i < this.items.length; i++) {
             var x = x_offset;
             var y = y_offset + i * vert_spacer;
-            this.footer_links[i] = new Footer_Link(this, this.titles[i], i, x, y, text_size);
+            links[i] = new Looper_Link(this, this.titles[i], i, x, y, text_size);
         }
+
+        return links;
     }
 
-    show_list() {
-        this.draw_sketch = this.opening_sketch;
-        for (var i = 1; i < this.footer_links.length; i++) this.footer_links[i].show();
+    show_links_list() {
+        for (var i = 1; i < this.looper_links.length; i++) this.looper_links[i].show(this.sketch);
     }
 
 }
 
-// ------------------- Footer_Roll --------------------------
-class Footer_Roll {
+// ---------------------------------------------
+
+class Looper_Roll {
 
     constructor(item_list) {
         this.items = item_list;
@@ -193,10 +165,9 @@ class Footer_Roll {
     }
 }
 
-// ------------- Footer_link ----------------------
-// shows desired sketch when clicked based on footer_roll items
+// -----------------------------------
 
-class Footer_Link {
+class Looper_Link {
 
     constructor(parent_c, show_text, link_id, xpos, ypos, tsize) {
         this.parent = parent_c;
@@ -216,20 +187,20 @@ class Footer_Link {
         this.myBounds();
     }
 
-    show() {
+    show(sketch) {
         var underline_offset = 1;
         if (this.isOver()) {
-            fill(this.overColor);
-            stroke(this.overColor);
+            sketch.fill(this.overColor);
+            sketch.stroke(this.overColor);
         } else {
-            fill(255);
-            stroke(255);
+            sketch.fill(255);
+            sketch.stroke(255);
         }
 
-        textAlign(LEFT, TOP);
-        textSize(this.size);
-        text(this.text, this.x, this.y);
-        line(this.xmin, this.ymax + underline_offset, this.xmax, this.ymax + underline_offset);
+        sketch.textAlign(LEFT, TOP);
+        sketch.textSize(this.size);
+        sketch.text(this.text, this.x, this.y);
+        sketch.line(this.xmin, this.ymax + underline_offset, this.xmax, this.ymax + underline_offset);
     }
 
     myBounds() {
