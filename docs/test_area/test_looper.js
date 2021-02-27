@@ -10,7 +10,8 @@ function setup() {
 
     // add background canvas if desired:
     var body = document.body;
-    var canv = createCanvas(windowWidth,body.clientHeight);
+    var canv_height = max(body.clientHeight,windowHeight);
+    var canv = createCanvas(windowWidth,canv_height);
     canv.position(0, 0);
     canv.style('opacity', 0.8);
     canv.style('z-index', '-1');
@@ -18,10 +19,10 @@ function setup() {
 
 function draw() {
 
-    // clear();
-    // background(0);
-    // fill(255,200,200,150);
-    // ellipse(mouseX, mouseY, 200, 200);
+    clear();
+    background(0);
+    fill(255,200,200,150);
+    ellipse(mouseX, mouseY, 200, 200);
 
     looper_page.update();
 }
@@ -38,37 +39,14 @@ function mousePressed() {
     looper_page.mseClicked();
 }
 
-// function mouseClicked() {
-//     looper_page.mseClicked();
-// }
-
 function opening(fresh_load=true) {
     var p = looper_page.sketch;
 
     if (fresh_load==true) {
         looper_page.clear_links();
-        console.log("first load");
     }
 
     p.clear();
     p.background(100,240,130,200);
     looper_page.show_links_list();
 }
-
-// function simulator(fresh_load=true) {
-
-//     var p = looper_page.sketch;
-
-//     if (fresh_load==true) {
-//         looper_page.clear_links();
-//         looper_page.add_link('https://p5js.org/reference/#/p5/createA','new table-top link', 300, 500);
-//     }
-    
-//     p.clear();
-//     p.background(200,100,130,20);
-//     p.textAlign(CENTER,CENTER);
-//     p.fill(255);
-//     p.textSize(30);
-//     p.text("simulator project",p.width/2,p.height/2);
-
-// }

@@ -24,22 +24,6 @@ class Looper_Page extends Proto_Page {
 
     update() {
 
-        // this.looper_roll.update();
-
-        // doing this to avoid figuring out how to use async functions.
-        // it will just skip the draw loop until the next is loaded and recognized,
-        // rather than wait for a promise to be fulfilled.
-        // something to grow on.
-
-        // if (typeof this.items[this.index] === "function") console.log("yes its a function");
-        // else console.log("not a function");
-
-        // if (eval(this.function_name)) console.log("yes its a function");
-        // else console.log("not a function");
-
-        // console.log("start update",this.function_name);
-
-
         this.draw_sketch(this.fresh_load);
         this.fresh_load = false;
 
@@ -60,98 +44,14 @@ class Looper_Page extends Proto_Page {
         else {
             this.fresh_load = false;
         }
-
-
-        // try {
-        //     // console.log(this.function_name);
-        //     this.draw_sketch = eval(this.function_name);
-        // } catch (err) {
-        //     console.log("we have no function");
-        //     return;
-        // }
-
-        // if (this.looper_roll.item_changed()) {
-        //     console.log("before swap",this.draw_sketch);
-        //     this.swap_functions();
-        //     console.log("after swap",this.draw_sketch);
-        //     this.fresh_load = true;
-        // } else {
-        //     this.draw_sketch(this.fresh_load);
-        //     this.fresh_load = false;
-        // }
-    }
-
-    // swappy = new Promise((resolve, reject) => {
-    //     if (somethingSuccesfulHappened) {
-    //         const successObject = {
-    //             msg: 'Success',
-    //             data, //...some data we got back
-    //         }
-    //         resolve(successObject);
-    //     } else {
-    //         const errorObject = {
-    //             msg: 'An error occured',
-    //             error, //...some error we got back
-    //         }
-    //         reject(errorObject);
-    //     }
-    // });
-
-    async switch_to_function(new_fn) {
-
-        await this.load_function(new_fn);
-
-        return;
-
-        //  .then((fn) => this.draw_sketch = eval(fn));
-
-
-        // return new Promise((resolve, reject) => {
-        //     resolve(this.load_function(new_fn));
-        // });
-
-        // return new Promise((resolve, reject) => {
-        //     var fn = this.load_function(new_fn);
-        //     resolve(fn);
-        // });
-
-        // this.index = this.looper_roll.get_index();
-        // this.function_name = this.items[this.index];
-
-        // try {
-        //     this.draw_sketch = eval(this.function_name);
-        //     console.log("function is already loaded.", this.function_name);
-        // } catch {
-        //     this.load_function(this.function_name).then(whatever => {
-        //             console.log("swaperoo");
-        //         }
-
-        //     );
-        //     console.log("loading new sketch", this.function_name);
-        // }
-    }
-
-    swap_functions() {
-        this.index = this.looper_roll.get_index();
-        this.function_name = this.items[this.index];
-
-        try {
-            this.draw_sketch = eval(this.function_name);
-            console.log("function is already loaded.", this.function_name);
-        } catch {
-            this.load_function(this.function_name);
-            console.log("loading new sketch", this.function_name);
-        }
     }
 
     force_change(index) {
         this.looper_roll.force_change(index);
-        // this.update();
     }
 
     load_function(func_name) {
         var self = this;
-        console.log("attempting to load function ", func_name);
         var url = func_name + ".js";
         var head = document.head;
         var script = document.createElement('script');
@@ -159,19 +59,8 @@ class Looper_Page extends Proto_Page {
         script.setAttribute("src", url);
         head.appendChild(script);
         script.addEventListener("load", (event) => {
-            console.log('script loaded');
             self.draw_sketch = eval(func_name);
-
           });
-        // script.addEventListener("load", scriptLoaded);
-
-        // function scriptLoaded() {
-        //     console.log("got the new function");
-        //     this.draw_sketch = eval(func_name);
-        //     this.fresh_load = true;
-        // }
-
-        // return func_name;
     }
 
     make_looper_links() {
@@ -254,7 +143,6 @@ class Looper_Roll {
     force_change(index) {
         this.last_index = this.list_index;
         this.list_index = index;
-        // this.last_index = -1;
     }
 
     get_index() {

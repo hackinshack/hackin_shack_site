@@ -9,6 +9,7 @@ function simulator(fresh_load=true) {
     
     p.clear();
     p.background(200,100,130,20);
+    p.ellipse(p.mouseX,p.mouseY,50,50);
     p.textAlign(CENTER,CENTER);
     p.fill(255);
     p.textSize(30);
