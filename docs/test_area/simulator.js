@@ -1,18 +1,17 @@
 function simulator(fresh_load=true) {
 
-    // this is essentially "setup" for this chuck of code:
-    if (fresh_load) {
+    var p = looper_page.sketch;
 
-        clear_article();
-        
-        var link = createA('', 'new simulator link');
-        link.parent('sketch1');
-        link.position(0.3*width, 0.8*height);
-        console.log("I'm creating a link");
-
+    if (fresh_load==true) {
+        looper_page.clear_links();
+        looper_page.add_link('https://p5js.org/reference/#/p5/createA','new table-top link', 300, 500);
     }
+    
+    p.clear();
+    p.background(200,100,130,200);
+    p.textAlign(CENTER,CENTER);
+    p.fill(255);
+    p.textSize(30);
+    p.text("simulator project",p.width/2,p.height/2);
 
-    fill(255);
-    textSize(30);
-    text("curling simulator project", width / 2, height / 2);
 }

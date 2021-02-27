@@ -2,6 +2,8 @@ class Looper_Page extends Proto_Page {
 
     constructor(function_list, link_labels) {
         super(1,function_list);
+        this.main_menu = new Main_Menu();
+        this.header_image = this.add_header_image('/docs/images/logo_side_4.png');
 
         this.items = function_list;
         this.titles = link_labels;
@@ -13,12 +15,11 @@ class Looper_Page extends Proto_Page {
         this.draw_sketch = eval(this.items[0]);
 
         this.index = -1;
-        this.looper_links = [];
         this.fresh_load = true;  
     }
 
     mseClicked() {
-        for (var i = 0; i < this.looper_links.length; i++) this.looper_links[i].mseClicked();
+        for (var i = 0; i < this.looper_links.length; i++) this.looper_links[i].mseClicked(this.sketch);
     }
 
     update() {
@@ -50,10 +51,10 @@ class Looper_Page extends Proto_Page {
 
         try {
             this.draw_sketch = eval(this.function_name);
-            // console.log("function is already loaded.", this.function_name);
+            console.log("function is already loaded.", this.function_name);
         } catch {
             this.load_function(this.function_name);
-            // console.log("loading new sketch");
+            console.log("loading new sketch");
         }
     }
 
@@ -89,6 +90,30 @@ class Looper_Page extends Proto_Page {
 
     show_links_list() {
         for (var i = 1; i < this.looper_links.length; i++) this.looper_links[i].show(this.sketch);
+    }
+
+    add_link(url,label,x,y) {
+        console.log("creating link");
+
+        // var parent = select('article');
+        // console.log(parent);
+        // var link = createA(url, label, '_self');
+        var link = createA(url, label);
+        // var link = createA("","do it to me");
+        link.parent(select('article'));
+
+        // link.style('z-index', '3');
+        link.position(x, y);
+        // console.log(link);
+
+    }
+
+    clear_links() {
+        // remove all links from article:
+        var a = selectAll('a', '#article');
+        for (var i = 0; i < a.length; i++) {
+            a[i].remove();
+        }
     }
 
 }
@@ -188,8 +213,9 @@ class Looper_Link {
     }
 
     show(sketch) {
+
         var underline_offset = 1;
-        if (this.isOver()) {
+        if (this.isOver(sketch)) {
             sketch.fill(this.overColor);
             sketch.stroke(this.overColor);
         } else {
@@ -210,15 +236,15 @@ class Looper_Link {
         this.ymax = this.y + this.height;
     }
 
-    mseClicked() {
-        if (this.isOver()) {
+    mseClicked(sketch) {
+        if (this.isOver(sketch)) {
             this.parent.force_change(this.link);
         }
     }
 
-    isOver() {
-        if (mouseX > this.xmin && mouseX < this.xmax) {
-            if (mouseY > this.ymin && mouseY < this.ymax) {
+    isOver(sketch) {
+        if (sketch.mouseX > this.xmin && sketch.mouseX < this.xmax) {
+            if (sketch.mouseY > this.ymin && sketch.mouseY < this.ymax) {
                 return true;
             }
         }

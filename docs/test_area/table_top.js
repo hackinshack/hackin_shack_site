@@ -1,15 +1,17 @@
 function table_top(fresh_load=true) {
+    var p = looper_page.sketch;
 
-    if (fresh_load) {
-        clear_article();
-        var link = createA('', 'new table-top link');
-        link.parent('sketch1');
-        link.position(300, 500);
-        console.log("I'm creating a link");
+    if (fresh_load==true) {
+        looper_page.clear_links();
+        // var link = createA("","do it to me");
+        // link.parent(looper_page.asides[0]);
+        looper_page.add_link('','new table-top link', 50, 50);
     }
     
-    fill(255);
-    textSize(30);
-    text("table top curling project",width/2,height/2);
-
+    // p.clear();
+    p.background(200,100,130,200);
+    p.textAlign(CENTER,CENTER);
+    p.fill(255);
+    p.textSize(30);
+    p.text("table top curling project",p.width/2,p.height/2);
 }

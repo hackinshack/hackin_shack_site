@@ -7,9 +7,24 @@ var link_labels = ["opening sketch","curling simulator","desktop curling","table
 function setup() {
     looper_page = new Looper_Page(function_list,link_labels);
     looper_page.add_aside_text(aside_text);
+
+    // add background canvas if desired:
+    var body = document.body;
+    var canv = createCanvas(windowWidth,body.clientHeight);
+    canv.position(0, 0);
+    canv.style('opacity', 0.8);
+    canv.style('z-index', '-1');
 }
 
 function draw() {
+
+        // clear();
+    // background(0);
+    // fill(255,200,200,150);
+    // ellipse(mouseX, mouseY, 200, 200);
+
+    looper_page.update();
+
 
 }
 
@@ -28,12 +43,11 @@ function mousePressed() {
 function opening(fresh_load=true) {
     var p = looper_page.sketch;
 
-    if (fresh_load) {
-        background(100);
-        // set_body_background('none');
-        // set_sketch_opacity(200);
-
+    if (fresh_load==true) {
+        looper_page.clear_links();
     }
-    p.background(100,240,130);
+
+    p.clear();
+    p.background(100,240,130,200);
     looper_page.show_links_list();
 }

@@ -1,28 +1,17 @@
 function desktop(fresh_load = true) {
 
-    if (fresh_load) {
-        clear_article();
+    var p = looper_page.sketch;
 
-        // create the user interface elements:
-        var link = createA('', 'desktop link');
-        link.parent('sketch1');
-        link.position(300, 500);
-        console.log("I'm creating a link from desktop");
-
-        var textBox = createDiv('putting some text wherever the f it wants to go  \
-        even if it wants to run all over the page I do not care');
-        textBox.parent('sketch1');
-        textBox.class('sketch-div');
-        textBox.position(0, 0);
-
-        // back_sketch.canv.style('opacity', 0.5);
-
-        // define any variables that will be needed:
-        // var desktop_sim = new Animate_Container();
-
+    if (fresh_load==true) {
+        looper_page.clear_links();
+        looper_page.add_link('https://p5js.org/reference/#/p5/createA','new table-top link', 100, 100);
     }
+    
+    // p.clear();
+    p.background(200,100,130,200);
+    p.textAlign(CENTER,CENTER);
+    p.fill(255);
+    p.textSize(30);
+    p.text("desktop curling project",p.width/2,p.height/2);
 
-    fill(255);
-    textSize(30);
-    text("desktop curling project", width / 2, height / 2);
 }
