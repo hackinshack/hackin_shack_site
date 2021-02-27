@@ -7,8 +7,8 @@ function desktop(fresh_load = true) {
         looper_page.add_link('https://p5js.org/reference/#/p5/createA','new table-top link', 100, 100);
     }
     
-    // p.clear();
-    p.background(200,100,130,200);
+    p.clear();
+    p.background(200,100,130,20);
     p.textAlign(CENTER,CENTER);
     p.fill(255);
     p.textSize(30);

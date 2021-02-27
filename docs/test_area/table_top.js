@@ -3,13 +3,11 @@ function table_top(fresh_load=true) {
 
     if (fresh_load==true) {
         looper_page.clear_links();
-        // var link = createA("","do it to me");
-        // link.parent(looper_page.asides[0]);
         looper_page.add_link('','new table-top link', 50, 50);
     }
     
-    // p.clear();
-    p.background(200,100,130,200);
+    p.clear();
+    p.background(200,100,130,20);
     p.textAlign(CENTER,CENTER);
     p.fill(255);
     p.textSize(30);

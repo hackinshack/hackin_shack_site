@@ -1,21 +1,21 @@
 class Looper_Page extends Proto_Page {
 
     constructor(function_list, link_labels) {
-        super(1,function_list);
+        super(1, function_list);
         this.main_menu = new Main_Menu();
         this.header_image = this.add_header_image('/docs/images/logo_side_4.png');
 
         this.items = function_list;
         this.titles = link_labels;
-        this.menu = new Looper_Roll(this.items);
+        this.looper_roll = new Looper_Roll(this.items);
         this.looper_links = this.make_looper_links();
 
         this.sketch = this.psketch[0].sketch;
         this.function_name = this.items[0];
-        this.draw_sketch = eval(this.items[0]);
+        this.draw_sketch = eval(this.function_name);
 
-        this.index = -1;
-        this.fresh_load = true;  
+        this.loaded_functions = [this.items[0]];
+        this.fresh_load = true;
     }
 
     mseClicked() {
@@ -24,29 +24,115 @@ class Looper_Page extends Proto_Page {
 
     update() {
 
-        this.menu.update();
+        // this.looper_roll.update();
 
         // doing this to avoid figuring out how to use async functions.
         // it will just skip the draw loop until the next is loaded and recognized,
         // rather than wait for a promise to be fulfilled.
         // something to grow on.
-        try {
-            this.draw_sketch = eval(this.function_name);
-        } catch (err) {
-            return;
-        }
 
-        if (this.menu.item_changed()) {
-            this.swap_functions();
+        // if (typeof this.items[this.index] === "function") console.log("yes its a function");
+        // else console.log("not a function");
+
+        // if (eval(this.function_name)) console.log("yes its a function");
+        // else console.log("not a function");
+
+        // console.log("start update",this.function_name);
+
+
+        this.draw_sketch(this.fresh_load);
+        this.fresh_load = false;
+
+        if (this.looper_roll.item_changed()) {
             this.fresh_load = true;
-        } else {
-            this.draw_sketch(this.fresh_load);
+            var ind = this.looper_roll.get_index();
+            var new_function = this.items[ind];
+
+            if (this.loaded_functions.includes(new_function)) {
+                this.draw_sketch = eval(new_function);
+                return;
+            }
+            
+            this.load_function(new_function);
+            this.fresh_load = true;
+            this.loaded_functions.push(new_function);
+        }
+        else {
             this.fresh_load = false;
         }
+
+
+        // try {
+        //     // console.log(this.function_name);
+        //     this.draw_sketch = eval(this.function_name);
+        // } catch (err) {
+        //     console.log("we have no function");
+        //     return;
+        // }
+
+        // if (this.looper_roll.item_changed()) {
+        //     console.log("before swap",this.draw_sketch);
+        //     this.swap_functions();
+        //     console.log("after swap",this.draw_sketch);
+        //     this.fresh_load = true;
+        // } else {
+        //     this.draw_sketch(this.fresh_load);
+        //     this.fresh_load = false;
+        // }
+    }
+
+    // swappy = new Promise((resolve, reject) => {
+    //     if (somethingSuccesfulHappened) {
+    //         const successObject = {
+    //             msg: 'Success',
+    //             data, //...some data we got back
+    //         }
+    //         resolve(successObject);
+    //     } else {
+    //         const errorObject = {
+    //             msg: 'An error occured',
+    //             error, //...some error we got back
+    //         }
+    //         reject(errorObject);
+    //     }
+    // });
+
+    async switch_to_function(new_fn) {
+
+        await this.load_function(new_fn);
+
+        return;
+
+        //  .then((fn) => this.draw_sketch = eval(fn));
+
+
+        // return new Promise((resolve, reject) => {
+        //     resolve(this.load_function(new_fn));
+        // });
+
+        // return new Promise((resolve, reject) => {
+        //     var fn = this.load_function(new_fn);
+        //     resolve(fn);
+        // });
+
+        // this.index = this.looper_roll.get_index();
+        // this.function_name = this.items[this.index];
+
+        // try {
+        //     this.draw_sketch = eval(this.function_name);
+        //     console.log("function is already loaded.", this.function_name);
+        // } catch {
+        //     this.load_function(this.function_name).then(whatever => {
+        //             console.log("swaperoo");
+        //         }
+
+        //     );
+        //     console.log("loading new sketch", this.function_name);
+        // }
     }
 
     swap_functions() {
-        this.index = this.menu.get_index();
+        this.index = this.looper_roll.get_index();
         this.function_name = this.items[this.index];
 
         try {
@@ -54,22 +140,38 @@ class Looper_Page extends Proto_Page {
             console.log("function is already loaded.", this.function_name);
         } catch {
             this.load_function(this.function_name);
-            console.log("loading new sketch");
+            console.log("loading new sketch", this.function_name);
         }
     }
 
     force_change(index) {
-        this.menu.force_change(index);
-        this.update();
+        this.looper_roll.force_change(index);
+        // this.update();
     }
 
     load_function(func_name) {
+        var self = this;
+        console.log("attempting to load function ", func_name);
         var url = func_name + ".js";
         var head = document.head;
         var script = document.createElement('script');
         script.setAttribute("type", "text/javascript");
         script.setAttribute("src", url);
         head.appendChild(script);
+        script.addEventListener("load", (event) => {
+            console.log('script loaded');
+            self.draw_sketch = eval(func_name);
+
+          });
+        // script.addEventListener("load", scriptLoaded);
+
+        // function scriptLoaded() {
+        //     console.log("got the new function");
+        //     this.draw_sketch = eval(func_name);
+        //     this.fresh_load = true;
+        // }
+
+        // return func_name;
     }
 
     make_looper_links() {
@@ -92,20 +194,10 @@ class Looper_Page extends Proto_Page {
         for (var i = 1; i < this.looper_links.length; i++) this.looper_links[i].show(this.sketch);
     }
 
-    add_link(url,label,x,y) {
-        console.log("creating link");
-
-        // var parent = select('article');
-        // console.log(parent);
-        // var link = createA(url, label, '_self');
+    add_link(url, label, x, y) {
         var link = createA(url, label);
-        // var link = createA("","do it to me");
         link.parent(select('article'));
-
-        // link.style('z-index', '3');
         link.position(x, y);
-        // console.log(link);
-
     }
 
     clear_links() {
@@ -152,15 +244,6 @@ class Looper_Roll {
         this.prevButton.mousePressed(this.prevItem.bind(this));
     }
 
-    update() {
-        if (this.list_index <= 0) {
-            this.list_index = 0;
-        }
-        if (this.list_index >= this.items.length - 1) {
-            this.list_index = this.items.length - 1;
-        }
-    }
-
     item_changed() {
         if (this.list_index != this.last_index) {
             this.last_index = this.list_index;
@@ -169,8 +252,9 @@ class Looper_Roll {
     }
 
     force_change(index) {
+        this.last_index = this.list_index;
         this.list_index = index;
-        this.last_index = -1;
+        // this.last_index = -1;
     }
 
     get_index() {
@@ -178,11 +262,19 @@ class Looper_Roll {
     }
 
     nextItem() {
+        this.last_index = this.list_index;
         this.list_index++;
+        if (this.list_index > this.items.length - 1) {
+            this.list_index = 0;
+        }
     }
 
     prevItem() {
+        this.last_index = this.list_index;
         this.list_index--;
+        if (this.list_index < 0) {
+            this.list_index = this.items.length - 1;
+        }
     }
 
     listItems() {

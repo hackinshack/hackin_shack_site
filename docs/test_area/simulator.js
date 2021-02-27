@@ -8,7 +8,7 @@ function simulator(fresh_load=true) {
     }
     
     p.clear();
-    p.background(200,100,130,200);
+    p.background(200,100,130,20);
     p.textAlign(CENTER,CENTER);
     p.fill(255);
     p.textSize(30);

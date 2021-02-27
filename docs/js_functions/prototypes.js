@@ -64,12 +64,9 @@ class Proto_Page {
     }).bind(this);
 
     add_sketches() {
-        console.log("here we go!");
         for (var i = 0; i < this.sections; i++) {
-            this.psketch[i] = new Proto_Sketch(this.articles[i].elt,this.draw[i]);
-            
+            this.psketch[i] = new Proto_Sketch(this.articles[i].elt, this.draw[i]);
         }
-        console.log("added the sketches", this.psketch[0].sketch);
     }
 
     add_header_image(img) {
@@ -92,13 +89,13 @@ class Proto_Page {
     }
 
     add_asides_text(text_array) {
-        for (var i=0; i<this.sections; i++) {
+        for (var i = 0; i < this.sections; i++) {
             var sidetext = createDiv(text_array[i]);
             sidetext.parent(this.asides[i]);
         }
     }
 
-    set_draw_function(article_id,func) {
+    set_draw_function(article_id, func) {
         this.psketch[article_id].set_draw_function(func);
     }
 
@@ -123,7 +120,7 @@ class Proto_Menu { // see Main_Menu extension below (silly, I know)
         this.button_class = btn_class;
         this.list_div;
         this.create();
-        
+
     }
 
     create() {
@@ -179,11 +176,10 @@ class Proto_Sketch {
     constructor(parent_elt, draw_function) {
         this.article = parent_elt;
         this.draw_loop = eval(draw_function);
-        this.sketch_width=400;
-        this.sketch_height=400;
-        this.sketch_border=10;
+        this.sketch_width = 400;
+        this.sketch_height = 400;
+        this.sketch_border = 10;
         this.sketch;
-        console.log("welp, I'm in here.", this.draw_loop);
         this.add_sketch();
     }
 
@@ -193,8 +189,8 @@ class Proto_Sketch {
 
             p.setup = function () {
                 p.resize();
-                // p.draw_loop = self.draw_loop;
             }
+
             p.draw = function () {
                 self.draw_loop(this);
 
@@ -203,6 +199,7 @@ class Proto_Sketch {
                     self.resize();
                 }
             }
+
             p.resize = function () {
                 var article = self.article;
                 self.sketch_width = article.offsetWidth - 2 * self.sketch_border;
@@ -214,7 +211,6 @@ class Proto_Sketch {
         };
 
         this.sketch = new p5(sketch_template, this.article);
-        console.log("adding a sketch");
     }
 
     set_draw_function(func) {
@@ -223,10 +219,10 @@ class Proto_Sketch {
 
     set_opacity(op) {
         var opacity = op;
-        if (opacity <= 1) opacity = 255*opacity;
+        if (opacity <= 1) opacity = 255 * opacity;
 
         var c = this.sketch.background_color;
-        this.sketch.background_color = color(red(c),green(c),blue(c),opacity);
+        this.sketch.background_color = color(red(c), green(c), blue(c), opacity);
     }
 
     resize() {
