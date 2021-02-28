@@ -1,67 +1,47 @@
-var canv;
-var background_color;
-var canvasDiv;
-var sketch_width, sketch_height;
-var sketch_border = 10;
-let back_sketch;
+let standard_page;
+let sections = 1;
+let function_list = [draw1];
+let aside_text = ['Welcome!'];
 
 function setup() {
-    back_sketch = new p5(background_sketch);
-    canvasDiv = document.getElementById('sketch1');
+    standard_page = new Standard_Page(sections,function_list);
+    standard_page.add_asides_text(aside_text);
 
-    resize();
-    
-    add_header_image();
-    add_menu();
-    add_aside_text();
-    add_footer_text();
-
-    background_color = Globals.get_orange();
+    // add background canvas if desired:
+    var body = document.body;
+    var canv_height = max(body.clientHeight,windowHeight);
+    var canv = createCanvas(windowWidth,canv_height);
+    canv.position(0, 0);
+    canv.style('opacity', 0.8);
+    canv.style('z-index', '-1');
 }
 
 function draw() {
     clear();
-    background(background_color);
-    fill(150,233,250,100);
-    ellipse(mouseX,mouseY,100,100);
+    background(0);
+    fill(255,200,200,150);
+    ellipse(mouseX, mouseY, 200, 200);
 }
 
-function add_aside_text() {
-    var twit = createDiv('Welcome!');
-    twit.parent('side1');
-    twit.style('font-size: 20px');
-}
-
-function resize() {
-    sketch_width = canvasDiv.offsetWidth -2*sketch_border;
-    sketch_height = canvasDiv.offsetHeight -2*sketch_border;
-
-    canv = createCanvas(sketch_width,sketch_height);
-    canv.position(sketch_border,sketch_border);
-    canv.parent('sketch1');
-}
-
-// this is a p5 function:
 function windowResized() {
-    resize();
-    back_sketch.resize();
+    standard_page.resize();
+
+    // to refit background sketch:
+    var body = document.body;
+    var canv_height = max(body.clientHeight,windowHeight);
+    resizeCanvas(windowWidth,canv_height);
+}
+
+// add the draw functions associated with each article: 
+
+function draw1(sketch) {
+    // need to make a pg that is the right size for the sketch
+    // var pg = createGraphics(400,400);
+    sketch.clear();
+    sketch.background(200,50,250,200);
+    sketch.fill(150, 233, 250, 100);
+    sketch.ellipse(sketch.mouseX, sketch.mouseY, 100, 100);
+    // console.log("all up in 1");
 }
 
 
-// var loadJS = function(url, implementationCode, location){
-//     //url is URL of external file, implementationCode is the code
-//     //to be called from the file, location is the location to 
-//     //insert the <script> element
-
-//     var scriptTag = document.createElement('script');
-//     scriptTag.src = url;
-
-//     scriptTag.onload = implementationCode;
-//     scriptTag.onreadystatechange = implementationCode;
-
-//     location.appendChild(scriptTag);
-// };
-// var yourCodeToBeCalled = function(){
-// //your code goes here
-// }
-// loadJS('yourcode.js', yourCodeToBeCalled, document.body);

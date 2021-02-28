@@ -32,7 +32,8 @@ function windowResized() {
 
     // to refit background sketch:
     var body = document.body;
-    resizeCanvas(windowWidth,body.clientHeight);
+    var canv_height = max(body.clientHeight,windowHeight);
+    resizeCanvas(windowWidth,canv_height);
 }
 
 function mousePressed() {

@@ -30,7 +30,7 @@ class Proto_Page {
 
     }
 
-    // bind this function to the Standard_Page object:
+    // bind this function to the Proto_Page object:
     set_element_grid = (function () {
 
         if (this.media_is_wide.matches) {

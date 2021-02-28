@@ -9,7 +9,8 @@ function setup() {
 
     // add background canvas if desired:
     var body = document.body;
-    var canv = createCanvas(windowWidth,body.clientHeight);
+    var canv_height = max(body.clientHeight,windowHeight);
+    var canv = createCanvas(windowWidth,canv_height);
     canv.position(0, 0);
     canv.style('opacity', 0.8);
     canv.style('z-index', '-1');
@@ -27,7 +28,8 @@ function windowResized() {
 
     // to refit background sketch:
     var body = document.body;
-    resizeCanvas(windowWidth,body.clientHeight);
+    var canv_height = max(body.clientHeight,windowHeight);
+    resizeCanvas(windowWidth,canv_height);
 }
 
 // add the draw functions associated with each article: 
