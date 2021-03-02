@@ -12,9 +12,10 @@ body {
   width: 90%;
   max-width: 900px;
   margin: 2em auto;
+  /* font: .9em/1.2 Arial, Helvetica, sans-serif; */
   font: 16px Ariel, sans-serif;
   background-color: black;
-  /* background-image: url("/docs/images/tools.jpg"); */
+  background-image: url("/docs/images/tools.jpg");
 }
 
 .container {
@@ -59,6 +60,12 @@ body {
   font: 18px Ariel, sans-serif;
   text-align: left;
 }
+/* 
+IMG.displayed {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+} */
 
 header {
   grid-column: span 2;
@@ -78,7 +85,7 @@ header {
 
 footer {
   grid-column: span 2;
-  /* grid-row: 5; */
+  grid-row: 5;
   font-size: 20px;
   padding: 10px;
   border-radius: 5px;
@@ -100,8 +107,9 @@ menu {
 
 article {
   grid-column: span 2;
+  grid-row: 3;
   border: 2px white;
-  /* border-style: solid; */
+  /* border-style: none none solid none; */
   /* border-radius: 5px; */
   /* background-color: rgb(197, 198, 240); */
   min-height: 400px;
@@ -109,27 +117,39 @@ article {
 }
 
 aside {
+  /* transform: rotate(-30deg); */
   grid-column: span 2;
+  grid-row: 4;
   min-height: 20px;
   border: 2px white;
-  /* background-color: rgb(45, 47, 165); */
+  /* border-style: none none solid none; */
   padding: 0px 20px 30px 20px;
   text-decoration: none;
-  font-size: 24px;
+  font-size: 18px;
   color: white;
   display: grid;
   align-content: flex-end;
+  /* justify-content: center; */
   text-align: center;
 }
 
 /* structure for larger screens:*/
 @media (min-width: 576px) {
 
+  aside {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
   article {
     min-height: 600px;
+    grid-column: 2;
+    grid-row: 3;
   }
 
   footer {
+    grid-column: span 2;
+    grid-row: 4;
     justify-content: right;
   }
 

@@ -230,3 +230,33 @@ class Proto_Sketch {
     }
 
 }
+
+// global variables class:
+class Globals {
+    constructor() {}
+
+    // this doesn't work on iOS:
+    // static sketch_border = 10;
+    // need to use a getter function if you want to do it this way:
+    static get sketch_border() {
+        return 10;
+    }
+
+    // a few useful colors to keep things consistent:
+    static get_orange() {
+        return color(250, 200, 100, 200);
+    }
+    static get_blue() {
+        return color(100, 200, 250, 200);
+    }
+    static get_green() {
+        return color(200, 250, 100, 200);
+    }
+    static get_pink() {
+        return color(250, 100, 200, 150);
+    }
+    static get_rust() {
+        return color(200, 100, 100, 200);
+    }
+
+}
